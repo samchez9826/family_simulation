@@ -1,0 +1,515 @@
+/* 全局样式 */
+:root {
+    --primary-color: #4a6fa5;
+    --secondary-color: #7895b2;
+    --accent-color: #d58936;
+    --text-color: #333;
+    --light-text: #666;
+    --very-light-text: #999;
+    --background-color: #f8f9fa;
+    --panel-background: #fff;
+    --border-color: #ddd;
+    --success-color: #28a745;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+    --shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    --border-radius: 4px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Microsoft YaHei", Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+#app {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+}
+
+/* 头部样式 */
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    font-size: 28px;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+#game-info {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    background-color: var(--panel-background);
+    padding: 10px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    margin-top: 10px;
+}
+
+.info-item {
+    padding: 5px 10px;
+}
+
+/* 按钮样式 */
+.btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    margin: 5px;
+}
+
+.btn:hover {
+    background-color: var(--primary-color);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: #3a5a84;
+}
+
+/* 开始页面 */
+#start-screen {
+    text-align: center;
+    padding: 50px 0;
+}
+
+.start-buttons {
+    margin-top: 30px;
+}
+
+.start-buttons .btn {
+    margin: 10px;
+    padding: 12px 24px;
+    font-size: 18px;
+    min-width: 200px;
+}
+
+/* 创建角色页面 */
+#create-character-screen {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: var(--panel-background);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+#create-character-screen h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--light-text);
+}
+
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 16px;
+}
+
+.radio-group {
+    display: flex;
+}
+
+.radio-group label {
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.radio-group input {
+    width: auto;
+    margin-right: 5px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* 游戏主界面 */
+.game-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: auto 1fr;
+    gap: 15px;
+    grid-template-areas:
+        "character activities"
+        "events activities";
+}
+
+/* 角色面板 */
+.character-panel {
+    grid-area: character;
+    background-color: var(--panel-background);
+    padding: 15px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.character-header {
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+.character-header h3 {
+    color: var(--primary-color);
+    margin-bottom: 5px;
+}
+
+#character-basic-info {
+    color: var(--light-text);
+    font-size: 14px;
+}
+
+.character-attributes {
+    margin-bottom: 15px;
+}
+
+.attribute {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.attribute-name {
+    width: 60px;
+    color: var(--light-text);
+    font-size: 14px;
+}
+
+.progress-bar {
+    flex-grow: 1;
+    height: 15px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 10px;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: var(--primary-color);
+    width: 0%;
+    transition: width 0.5s;
+}
+
+.attribute-value {
+    width: 30px;
+    text-align: right;
+    font-size: 14px;
+}
+
+.character-status {
+    color: var(--light-text);
+    font-size: 14px;
+}
+
+.status-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    padding: 5px 0;
+    border-bottom: 1px dotted var(--border-color);
+}
+
+.status-value {
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+/* 活动面板 */
+.activities-panel {
+    grid-area: activities;
+    background-color: var(--panel-background);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+}
+
+.activities-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.tab-btn {
+    padding: 10px 15px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--light-text);
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s;
+}
+
+.tab-btn:hover {
+    color: var(--primary-color);
+}
+
+.tab-btn.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+}
+
+.activities-content {
+    flex-grow: 1;
+    padding: 15px;
+    overflow-y: auto;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+}
+
+.activity-btn {
+    padding: 10px;
+    background-color: #f5f5f5;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+}
+
+.activity-btn:hover {
+    background-color: #e9ecef;
+    border-color: var(--secondary-color);
+}
+
+.end-day-container {
+    padding: 15px;
+    text-align: center;
+    border-top: 1px solid var(--border-color);
+}
+
+/* 事件面板 */
+.events-panel {
+    grid-area: events;
+    background-color: var(--panel-background);
+    padding: 15px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.events-panel h3 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 5px;
+}
+
+.events-container {
+    height: 300px;
+    overflow-y: auto;
+}
+
+.event-item {
+    margin-bottom: 10px;
+    padding: 8px;
+    border-bottom: 1px dotted var(--border-color);
+}
+
+.event-date {
+    font-size: 12px;
+    color: var(--very-light-text);
+}
+
+.event-text {
+    margin-top: 3px;
+}
+
+/* 加载存档页面 */
+#load-game-screen, #game-intro-screen {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: var(--panel-background);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+#load-game-screen h2, #game-intro-screen h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+.save-list {
+    margin-bottom: 20px;
+}
+
+.save-item {
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.save-item:hover {
+    background-color: #f5f5f5;
+    border-color: var(--secondary-color);
+}
+
+.save-item-date {
+    font-size: 12px;
+    color: var(--light-text);
+}
+
+/* 游戏介绍页面 */
+.intro-content {
+    margin-bottom: 20px;
+}
+
+.intro-content p {
+    margin-bottom: 15px;
+}
+
+.intro-content h3 {
+    margin: 15px 0 10px;
+    color: var(--primary-color);
+}
+
+.intro-content ul {
+    padding-left: 20px;
+    margin-bottom: 15px;
+}
+
+.intro-content li {
+    margin-bottom: 5px;
+}
+
+/* 对话框 */
+.dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.dialog-content {
+    background-color: var(--panel-background);
+    border-radius: var(--border-radius);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+#dialog-title {
+    margin-bottom: 15px;
+    color: var(--primary-color);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+#dialog-body {
+    margin-bottom: 20px;
+}
+
+.dialog-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* 表单对话框 */
+.dialog-form {
+    margin-bottom: 20px;
+}
+
+.dialog-form .form-group {
+    margin-bottom: 15px;
+}
+
+/* 通用工具类 */
+.hidden {
+    display: none !important;
+}
+
+/* 加载动画 */
+#loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #eee;
+    border-top-color: var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.loading-text {
+    margin-top: 10px;
+    color: var(--primary-color);
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

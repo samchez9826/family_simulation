@@ -1,0 +1,145 @@
+/* 移动端适配样式 */
+
+/* 全局布局调整 */
+#app {
+    padding: 10px;
+}
+
+header h1 {
+    font-size: 24px;
+}
+
+#game-info {
+    flex-direction: column;
+    padding: 5px;
+}
+
+.info-item {
+    padding: 3px 0;
+    text-align: center;
+}
+
+/* 开始屏幕适配 */
+.start-buttons .btn {
+    min-width: unset;
+    width: 80%;
+    padding: 10px;
+    margin: 5px auto;
+    display: block;
+}
+
+/* 创建角色页面适配 */
+#create-character-screen {
+    width: 100%;
+    padding: 15px;
+}
+
+.form-actions {
+    flex-direction: column;
+}
+
+.form-actions .btn {
+    width: 100%;
+    margin: 5px 0;
+}
+
+/* 游戏主界面重排 */
+.game-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr;
+    grid-template-areas:
+        "character"
+        "activities"
+        "events";
+}
+
+/* 角色面板调整 */
+.character-panel {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.character-header {
+    width: 100%;
+}
+
+.character-attributes {
+    width: 100%;
+}
+
+.character-status {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.status-item {
+    width: 50%;
+    padding: 3px 5px;
+}
+
+/* 活动面板调整 */
+.activities-tabs {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 5px;
+}
+
+.tab-btn {
+    padding: 8px 12px;
+    font-size: 14px;
+}
+
+.tab-content.active {
+    grid-template-columns: 1fr 1fr;
+}
+
+.activity-btn {
+    padding: 8px;
+    font-size: 14px;
+}
+
+.end-day-container {
+    padding: 10px;
+}
+
+/* 事件面板调整 */
+.events-panel {
+    padding: 10px;
+}
+
+.events-container {
+    height: 200px;
+}
+
+/* 对话框调整 */
+.dialog-content {
+    width: 95%;
+    padding: 15px;
+    max-height: 90vh;
+}
+
+#dialog-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+}
+
+.dialog-buttons {
+    flex-direction: column;
+}
+
+.dialog-buttons .btn {
+    width: 100%;
+    margin: 5px 0;
+}
+
+/* 加载/介绍页面适配 */
+#load-game-screen, #game-intro-screen {
+    width: 100%;
+    padding: 15px;
+}
+
+.save-item {
+    padding: 8px;
+}

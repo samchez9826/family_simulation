@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>家族兴衰模拟游戏</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mobile.css') }}" media="(max-width: 768px)">
+</head>
+<body>
+    <div id="app">
+        <div id="loading" class="hidden">
+            <div class="spinner"></div>
+            <div class="loading-text">加载中...</div>
+        </div>
+
+        <header>
+            <h1>家族兴衰模拟游戏</h1>
+            <div id="game-info" class="hidden">
+                <div class="info-item">
+                    <span>第<span id="current-day">1</span>天</span>
+                </div>
+                <div class="info-item">
+                    <span id="current-season">春季</span>
+                    <span id="economy-status">经济正常</span>
+                </div>
+                <div class="info-item">
+                    <span>家族财富: <span id="family-fortune">10000</span></span>
+                </div>
+                <div class="info-item">
+                    <span>家族声望: <span id="family-prestige">50</span></span>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <!-- 开始页面 -->
+            <section id="start-screen">
+                <div class="start-buttons">
+                    <button id="new-game-btn" class="btn btn-primary">新游戏</button>
+                    <button id="load-game-btn" class="btn">读取存档</button>
+                    <button id="game-intro-btn" class="btn">游戏介绍</button>
+                </div>
+            </section>
+
+            <!-- 创建角色页面 -->
+            <section id="create-character-screen" class="hidden">
+                <h2>创建角色</h2>
+                <form id="character-form">
+                    <div class="form-group">
+                        <label for="character-name">姓名 (留空随机生成)</label>
+                        <input type="text" id="character-name" placeholder="输入姓名">
+                    </div>
+
+                    <div class="form-group">
+                        <label>性别</label>
+                        <div class="radio-group">
+                            <label>
+                                <input type="radio" name="gender" value="男性" checked> 男性
+                            </label>
+                            <label>
+                                <input type="radio" name="gender" value="女性"> 女性
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="character-age">年龄 (18-60)</label>
+                        <input type="number" id="character-age" min="18" max="60" value="25">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="education-level">教育水平</label>
+                        <select id="education-level">
+                            <option value="高中">高中</option>
+                            <option value="大专">大专</option>
+                            <option value="本科">本科</option>
+                            <option value="硕士">硕士</option>
+                            <option value="博士">博士</option>
+                        </select>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" id="create-random-btn" class="btn">随机角色</button>
+                        <button type="submit" class="btn btn-primary">创建角色</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- 游戏主界面 -->
+            <section id="game-screen" class="hidden">
+                <div class="game-container">
+                    <!-- 角色信息面板 -->
+                    <div class="character-panel">
+                        <div class="character-header">
+                            <h3 id="character-name-display">角色名</h3>
+                            <span id="character-basic-info">性别 | 年龄岁</span>
+                        </div>
+
+                        <div class="character-attributes">
+                            <div class="attribute">
+                                <span class="attribute-name">健康</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="health-bar"></div>
+                                </div>
+                                <span class="attribute-value" id="health-value">0</span>
+                            </div>
+
+                            <div class="attribute">
+                                <span class="attribute-name">精力</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="energy-bar"></div>
+                                </div>
+                                <span class="attribute-value" id="energy-value">0</span>
+                            </div>
+
+                            <div class="attribute">
+                                <span class="attribute-name">外貌</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="appearance-bar"></div>
+                                </div>
+                                <span class="attribute-value" id="appearance-value">0</span>
+                            </div>
+
+                            <div class="attribute">
+                                <span class="attribute-name">智商</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="intelligence-bar"></div>
+                                </div>
+                                <span class="attribute-value" id="intelligence-value">0</span>
+                            </div>
+
+                            <div class="attribute">
+                                <span class="attribute-name">情商</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="emotional-intelligence-bar"></div>
+                                </div>
+                                <span class="attribute-value" id="emotional-intelligence-value">0</span>
+                            </div>
+
+                            <div class="attribute">
+                                <span class="attribute-name">财商</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="financial-intelligence-bar"></div>
+                                </div>
+                                <span class="attribute-value" id="financial-intelligence-value">0</span>
+                            </div>
+                        </div>
+
+                        <div class="character-status">
+                            <div class="status-item">
+                                <span class="status-label">工作:</span>
+                                <span class="status-value" id="job-value">无业</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="status-label">薪资:</span>
+                                <span class="status-value" id="salary-value">¥0</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="status-label">资产:</span>
+                                <span class="status-value" id="assets-value">¥1000</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="status-label">学历:</span>
+                                <span class="status-value" id="education-value">高中</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="status-label">情感:</span>
+                                <span class="status-value" id="relationship-value">单身</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 活动面板 -->
+                    <div class="activities-panel">
+                        <div class="activities-tabs">
+                            <button class="tab-btn active" data-tab="basic">基础活动</button>
+                            <button class="tab-btn" data-tab="work">工作与学习</button>
+                            <button class="tab-btn" data-tab="social">社交与关系</button>
+                            <button class="tab-btn" data-tab="finance">财富与投资</button>
+                            <button class="tab-btn" data-tab="special">特殊活动</button>
+                        </div>
+
+                        <div class="activities-content">
+                            <div class="tab-content active" id="basic-tab">
+                                <button class="activity-btn" data-activity="rest">休息 (+精力)</button>
+                                <button class="activity-btn" data-activity="exercise">锻炼 (+健康)</button>
+                                <button class="activity-btn" data-activity="status">查看详细状态</button>
+                                <button class="activity-btn" data-activity="family">查看家族</button>
+                            </div>
+
+                            <div class="tab-content" id="work-tab">
+                                <button class="activity-btn" data-activity="work">工作 (赚钱)</button>
+                                <button class="activity-btn" data-activity="study">学习 (+能力)</button>
+                                <button class="activity-btn" data-activity="job_hunting">求职/换工作</button>
+                            </div>
+
+                            <div class="tab-content" id="social-tab">
+                                <button class="activity-btn" data-activity="socialize">社交 (+人脉)</button>
+                                <button class="activity-btn" data-activity="date">寻找伴侣</button>
+                                <button class="activity-btn" data-activity="mental_health">心理健康</button>
+                            </div>
+
+                            <div class="tab-content" id="finance-tab">
+                                <button class="activity-btn" data-activity="investment">投资</button>
+                                <button class="activity-btn" data-activity="start_business">创业</button>
+                                <button class="activity-btn" data-activity="charity">慈善捐款</button>
+                            </div>
+
+                            <div class="tab-content" id="special-tab">
+                                <button class="activity-btn" data-activity="plastic_surgery">整容</button>
+                            </div>
+                        </div>
+
+                        <div class="end-day-container">
+                            <button id="end-day-btn" class="btn btn-primary">结束当天</button>
+                        </div>
+                    </div>
+
+                    <!-- 事件面板 -->
+                    <div class="events-panel">
+                        <h3>事件记录</h3>
+                        <div class="events-container" id="events-list">
+                            <!-- 事件内容将动态生成 -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 加载存档页面 -->
+            <section id="load-game-screen" class="hidden">
+                <h2>加载存档</h2>
+                <div class="save-list" id="save-files-list">
+                    <!-- 存档列表将动态生成 -->
+                </div>
+                <button id="back-from-load" class="btn">返回</button>
+            </section>
+
+            <!-- 游戏介绍页面 -->
+            <section id="game-intro-screen" class="hidden">
+                <h2>游戏介绍</h2>
+                <div class="intro-content">
+                    <p>《家族兴衰模拟游戏》是一个文字模拟游戏，您将扮演一个角色，从普通人开始，一步步发展，最终建立一个强大的家族。</p>
+
+                    <h3>游戏特点:</h3>
+                    <ul>
+                        <li>丰富的人生模拟：学习、工作、恋爱、结婚、生育...</li>
+                        <li>经济系统：工作、投资、创业等多种赚钱方式</li>
+                        <li>社交系统：建立人脉，拓展关系网络</li>
+                        <li>家族传承：培养子女，传承家业</li>
+                        <li>随机事件：丰富多彩的人生际遇</li>
+                    </ul>
+
+                    <p>您的目标是积累财富、提升声望，打造一个繁荣昌盛的家族！</p>
+                </div>
+                <button id="back-from-intro" class="btn">返回</button>
+            </section>
+        </main>
+
+        <!-- 对话框 -->
+        <div id="dialog" class="dialog hidden">
+            <div class="dialog-content">
+                <h3 id="dialog-title">标题</h3>
+                <div id="dialog-body">内容</div>
+                <div id="dialog-buttons" class="dialog-buttons">
+                    <!-- 按钮将动态生成 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/api.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ui.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
